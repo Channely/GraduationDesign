@@ -1,0 +1,90 @@
+<%- include header %>
+<link href="stylesheets/cover.css" rel="stylesheet">
+<link href="stylesheets/signin.css" rel="stylesheet">
+<style>body { padding: 0 }</style>
+
+<div class="site-wrapper">
+
+    <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+            <div class="inner cover">
+
+                <h1 class="cover-heading">INITAL</h1>
+
+                <p class="lead">随 心 , 随 意 , 随 行 记 录 生 活 点 滴 . . . . </p>
+                <br>
+                <br>
+
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default panel-bar">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                                   class="btn btn-lg btn-info col-lg-2 col-lg-offset-3">
+                                    登 陆
+                                </a>
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+                                   class="btn btn-lg btn-info col-lg-2 col-lg-offset-0" style="margin:0 1%">
+                                    注 册
+                                </a>
+                                <a data-toggle="collapse" data-parent="#accordion" href="#"
+                                   class="btn btn-lg btn-info col-lg-2 col-lg-offset-0">
+                                    浏 览 >
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default panel-top">
+                        <div id="collapseTwo" class="panel-collapse collapse">
+                            <div class="container">
+
+                                <form class="form-signin" role="form" method="post">
+                                    <input type="email" class="form-control" placeholder="邮 箱" name="email" required="true"
+                                           autofocus="true">
+                                    <input type="password" class="form-control" placeholder="密 码" name="signin"
+                                           required="true">
+                                    <button class="btn btn-lg btn-success btn-block" type="submit">登 录</button>
+                                    <label class="checkbox">
+                                        <input type="checkbox"> 记住密码
+                                    </label>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default panel-top">
+                        <div id="collapseThree" class="panel-collapse collapse">
+                            <div class="container">
+
+                                <form class="form-signin" role="form" method="post">
+                                    <input type="email" class="form-control" placeholder="邮 箱" name="email" required="true"
+                                           autofocus="true">
+                                    <input type="password" class="form-control" placeholder="密 码" name="signup"
+                                           required="true">
+                                    <input type="password" class="form-control" placeholder="确认密码" name="signup-repeat" required="true">
+                                    <button class="btn btn-lg btn-warning btn-block" type="submit">注 册</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mastfoot navbar-fixed-bottom">
+                <div class="inner">
+                    <p>Paged by <a href="http://www.dart-lang.cn">Channely</a>, twitter <a
+                                href="https://twitter.com/qijie29896">@qijie29896</a>.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<%- include footer %>
