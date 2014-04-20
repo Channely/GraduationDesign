@@ -75,13 +75,14 @@ module.exports = function(app) {
             error: req.flash('error').toString()
         });
     });
-    app.post('/', function (req, res) {
-    });
     app.get('/post', function (req, res) {
         res.render('post', { title: '发表' });
     });
     app.post('/post', function (req, res) {
     });
     app.get('/logout', function (req, res) {
+        req.session.user = null;
+        req.flash('success', '登出成功!');
+        res.redirect('/');//登出成功后跳转到主页
     });
 };
