@@ -1,5 +1,5 @@
 module.exports = {
-    cookieSecret: 'win_node_blog',
-    db: 'WinNodeBlogDb',
+    cookieSecret: 'graduation_design',
+    db: 'graduation_design_db',
     host: 'localhost'
 }; 

@@ -29,10 +29,15 @@
 </head>
 
 <body>
-
 <% if (success) { %>
-<div><%= success %></div>
+<div class="alert alert-info alert-dismissable text-center">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <strong><%= success %></strong>
+</div>
 <% } %>
 <% if (error) { %>
-<div><%= error %> </div>
+<div class="alert alert-warning alert-dismissable text-center">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <strong><%= error %></strong>
+</div>
 <% } %>

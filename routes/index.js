@@ -2,6 +2,7 @@ var crypto = require('crypto'),
     User = require('../models/user.js');
 
 module.exports = function(app) {
+    app.get('/', checkNotLogin);
     app.get('/', function (req, res) {
         res.render('sign', {
             title: '登录/注册',
@@ -10,6 +11,7 @@ module.exports = function(app) {
             error: req.flash('error').toString()
         });
     });
+    app.post('/', checkNotLogin);
     app.post('/', function (req, res) {
         if(req.body.signin){
             //生成密码的 md5 值
@@ -75,14 +77,34 @@ module.exports = function(app) {
             error: req.flash('error').toString()
         });
     });
+    app.get('/post', checkLogin);
     app.get('/post', function (req, res) {
         res.render('post', { title: '发表' });
     });
+    app.post('/post', checkLogin);
     app.post('/post', function (req, res) {
     });
+    app.get('/logout', checkLogin);
     app.get('/logout', function (req, res) {
         req.session.user = null;
         req.flash('success', '登出成功!');
         res.redirect('/');//登出成功后跳转到主页
     });
+
+
+    function checkLogin(req, res, next) {
+        if (!req.session.user) {
+            req.flash('error', '未登录!');
+            res.redirect('/');
+        }
+        next();
+    }
+
+    function checkNotLogin(req, res, next) {
+        if (req.session.user) {
+            req.flash('error', '已登录!');
+            res.redirect('/index');
+        }
+        next();
+    }
 };
