@@ -1,0 +1,9 @@
+{
+    "name": "graduation_design",
+    "version": "1.0.0",
+    "main": "stylesheets/index.css",
+    "dependencies": {
+        "bootstrap": "3.1.1",
+        "jquery": "1.11.0"
+    }
+}

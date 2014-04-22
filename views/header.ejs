@@ -11,10 +11,10 @@
     <title>Project</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="stylesheets/style.css" rel="stylesheet">
+    <link href="stylesheets/index.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]>
@@ -29,15 +29,17 @@
 </head>
 
 <body>
-<% if (success) { %>
-<div class="alert alert-info alert-dismissable text-center">
-    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    <strong><%= success %></strong>
+<div class="container">
+    <% if (success) { %>
+    <div class="alert alert-success alert-dismissable text-center">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong><%= success %></strong>
+    </div>
+    <% } %>
+    <% if (error) { %>
+    <div class="alert alert-danger alert-dismissable text-center">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong><%= error %></strong>
+    </div>
+    <% } %>
 </div>
-<% } %>
-<% if (error) { %>
-<div class="alert alert-warning alert-dismissable text-center">
-    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    <strong><%= error %></strong>
-</div>
-<% } %>
