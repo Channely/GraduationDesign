@@ -19,13 +19,13 @@ Environment:
 	and exec
 		$ mkdir graduation_design_db
 		$ cd bin
-		#start mongodb
+		# Start mongodb
 		$ mongod -dbpath ../graduation_design_db/
-		#the code above can connect db to project and let project save data into graduation_design_db
-		#how stop mongodb
-		#$ sudo service mongodb stop
-		#If catch error while start/staop/restart mongodb, this is possible [solutions](http://my.oschina.net/coderman/blog/201555).
-		#添加新功能后，都要清空数据库（即删除 /mongodb/graduation_design_db 文件夹里所有文件）
+		# The code above can connect db to project and let project save data into graduation_design_db
+		# How stop mongodb
+		# $ sudo service mongodb stop
+		# If catch error while start/staop/restart mongodb, this is possible [solutions](http://my.oschina.net/coderman/blog/201555).
+		# After changing data-models, you should reclear all the files in graduation_design_db/, then restart mongodb.
 
 ###Get Blog Project:
 >Open the your Projects direction,
@@ -36,6 +36,6 @@ Environment:
         $ npm install
         $ bower install
         $ node app
-        #then open localhost:3000 in Chrome.
+        # Then open localhost:3000 in Chrome.
 
 
