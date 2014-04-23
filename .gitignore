@@ -1,3 +1,5 @@
+.build/
 .idea/
 public/bower_conmponents/
 node_modules/
+dist/
