@@ -1,0 +1,12 @@
+<%- include header %>
+<%- include navbar %>
+<div class="container" style="margin-top: 50px">
+    <form method="post" class="form-horizontal" role="form">
+        <h3>标题：</h3>
+        <input type="text" class="form-control" placeholder="活动主题" name="title" autofocus="true">
+        <h4>正文：</h4>
+        <textarea class="form-control" rows="3" name="post"></textarea>
+        <input type="submit" class="btn btn-primary btn-lg" value="发布" />
+    </form>
+</div>
+<%- include footer %>
