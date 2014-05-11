@@ -19,7 +19,7 @@ module.exports = function(app) {
             var md5 = crypto.createHash('md5'),
                 password = md5.update(req.body.signin).digest('hex');
             //检查用户是否存在
-            User.get(req.body.email, function (err, user) {
+            User.get(req.body.number, function (err, user) {
                 if (!user) {
                     req.flash('error', '用户不存在!');
                     return res.redirect('/sign');//用户不存在则跳转到登录页
@@ -48,12 +48,13 @@ module.exports = function(app) {
                 password = md5.update(req.body.signup).digest('hex');
             var newUser = new User({
                 password: password,
-                email: req.body.email
+                number: req.body.number,
+                email: 'qijie29896@gmail.com' //设置默认邮箱 以提供默认头像
             });
-            //检查用户邮箱是否已经存在
-            User.get(newUser.email, function (err, user) {
+            //检查用户学号是否已经存在
+            User.get(newUser.number, function (err, user) {
                 if (user) {
-                    req.flash('error', '邮箱已存在!');
+                    req.flash('error', '号码已存在!');
                     return res.redirect('/sign');//返回注册页
                 }
                 //如果不存在则新增用户
@@ -96,7 +97,7 @@ module.exports = function(app) {
     app.post('/post', checkLogin);
     app.post('/post', function (req, res) {
         var currentUser = req.session.user,
-            post = new Post(currentUser.email, req.body.title, req.body.post);
+            post = new Post(currentUser.number, req.body.title, req.body.post);
         post.save(function (err) {
             if (err) {
                 req.flash('error', err);
@@ -109,7 +110,7 @@ module.exports = function(app) {
     app.get('/logout', checkLogin);
     app.get('/logout', function (req, res) {
         req.session.user = null;
-        req.flash('success', '登出成功!');
+        req.flash('success', '成功登出!');
         res.redirect('/sign');//登出成功后跳转到主页
     });
 
