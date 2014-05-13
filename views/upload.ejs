@@ -1,0 +1,15 @@
+<%- include header %>
+<%- include navbar %>
+<div class="container" style="margin-top: 50px">
+    <form method='post' action='/upload' enctype='multipart/form-data' >
+        <input type="file" name='file1'/><br>
+        <input type="file" name='file2'/><br>
+        <input type="file" name='file3'/><br>
+        <input type="file" name='file4'/><br>
+        <input type="file" name='file5'/><br>
+        <button type="submit" class="btn btn-primary btn-lg" style="border-radius: 40px">
+            <span class="glyphicon glyphicon-arrow-up" style="color: orange">&nbsp;上传&nbsp;</span>
+        </button>
+    </form>
+</div>
+<%- include footer %>

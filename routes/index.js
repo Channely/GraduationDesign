@@ -1,4 +1,5 @@
 var crypto = require('crypto'),
+    fs = require('fs'),
     User = require('../models/user.js'),
     Post = require('../models/post.js');
 
@@ -112,6 +113,32 @@ module.exports = function(app) {
         req.session.user = null;
         req.flash('success', '成功登出!');
         res.redirect('/sign');//登出成功后跳转到主页
+    });
+    app.get('/upload', checkLogin);
+    app.get('/upload', function (req, res) {
+        res.render('upload', {
+            title: '上传图片',
+            user: req.session.user,
+            success: req.flash('success').toString(),
+            error: req.flash('error').toString()
+        });
+    });
+    app.post('/upload', checkLogin);
+    app.post('/upload', function (req, res) {
+        for (var i in req.files) {
+            if (req.files[i].size == 0){
+                // 使用同步方式删除一个文件
+                fs.unlinkSync(req.files[i].path);
+                console.log('Successfully removed an empty file!');
+            } else {
+                var target_path = './public/images/' + req.files[i].name;
+                // 使用同步方式重命名一个文件
+                fs.renameSync(req.files[i].path, target_path);
+                console.log('Successfully renamed a file!');
+            }
+        }
+        req.flash('success', '图片上传成功!');
+        res.redirect('/post');
     });
 
 
