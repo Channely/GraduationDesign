@@ -10,7 +10,8 @@
     "ejs": "*",
     "mongodb": "*",
     "connect-mongo": "*",
-    "connect-flash": "*"
+    "connect-flash": "*",
+    "markdown":"*"
   },
   "devDependencies": {
     "grunt": "^0.4.4",

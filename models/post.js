@@ -1,4 +1,5 @@
-var mongodb = require('./db');
+var mongodb = require('./db'),
+markdown = require('markdown').markdown;
 
 function Post(email, title, post) {
     this.email = email;
@@ -77,6 +78,10 @@ Post.get = function(email, callback) {
                 if (err) {
                     return callback(err);//失败！返回 err
                 }
+                //解析 markdown 为 html
+                docs.forEach(function (doc) {
+                    doc.post = markdown.toHTML(doc.post);
+                });
                 callback(null, docs);//成功！以数组形式返回查询的结果
             });
         });

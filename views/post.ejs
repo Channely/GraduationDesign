@@ -1,12 +1,18 @@
 <%- include header %>
 <%- include navbar %>
 <div class="container" style="margin-top: 50px">
-    <form method="post" class="form-horizontal" role="form">
-        <h3>标题：</h3>
+    <form method="post" class="form-horizontal text-primary" role="form">
+        <h4>主题：</h4>
         <input type="text" class="form-control" placeholder="活动主题" name="title" autofocus="true">
-        <h4>正文：</h4>
-        <textarea class="form-control" rows="3" name="post"></textarea>
-        <input type="submit" class="btn btn-primary btn-lg" value="发布" />
+        <br>
+        <h4>详情：</h4>
+        <textarea class="form-control" rows="6" placeholder="泼墨于此 . . . ." name="post"></textarea>
+        <br>
+        <button type="submit" class="btn btn-primary btn-lg" style="border-radius: 40px">
+            <!--&nbsp;-->
+            <span class="glyphicon glyphicon-send" style="color: orange">&nbsp;发布&nbsp;</span>
+            <!--&nbsp;-->
+        </button>
     </form>
 </div>
 <%- include footer %>
