@@ -1,0 +1,15 @@
+<%- include header %>
+<%- include navbar %>
+    <div class="container">
+        <% posts.forEach(function (post, index) { %>
+        <div class="jumbotron">
+            <p><h2><a href="/u/<%= post.number %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h2></p>
+            <p class="info">
+                作者：<a href="/u/<%= post.number %>"><%= post.number %></a> |
+                日期：<%= post.time.minute %>
+            </p>
+            <p><%- post.post %></p>
+        </div>
+        <% }) %>
+    </div>
+<%- include footer %>

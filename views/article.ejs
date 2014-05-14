@@ -1,0 +1,18 @@
+<%- include header %>
+<%- include navbar %>
+<div class="container">
+    <div class="jumbotron">
+        <% if (user && (user.number == post.number)) { %>
+        <span><a class="btn btn-default btn-lg" href="/edit/<%= post.number %>/<%= post.time.day %>/<%= post.title %>" style="border-radius: 40px"> 编 辑 </a></span>
+        <span><a class="btn btn-default btn-primary btn-xs" href="/remove/<%= post.number %>/<%= post.time.day %>/<%= post.title %>" style="border-radius: 40px">删 除</a></span>
+        <hr>
+        <% } %>
+        <p><h2><%= post.title %></h2></p>
+        <p class="info">
+            作者：<a href="/u/<%= post.number %>"><%= post.number %></a> |
+            日期：<%= post.time.minute %>
+        </p>
+        <p><%- post.post %></p>
+    </div>
+</div>
+<%- include footer %>
