@@ -1,0 +1,25 @@
+<!-- Modal -->
+<div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <form method='post' action='/upload' enctype='multipart/form-data' >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">图片上传</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="file" name='file1'/><br>
+                    <input type="file" name='file2'/><br>
+                    <input type="file" name='file3'/><br>
+                    <input type="file" name='file4'/><br>
+                    <input type="file" name='file5'/><br>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-lg" style="border-radius: 40px">
+                        <span class="glyphicon glyphicon-arrow-up" style="color: orange">&nbsp;上传&nbsp;</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -125,6 +125,7 @@ module.exports = function(app) {
     });
     app.post('/upload', checkLogin);
     app.post('/upload', function (req, res) {
+        var image_info = ''
         for (var i in req.files) {
             if (req.files[i].size == 0){
                 // 使用同步方式删除一个文件
@@ -132,13 +133,14 @@ module.exports = function(app) {
                 console.log('Successfully removed an empty file!');
             } else {
                 var target_path = './public/images/' + req.files[i].name;
+                image_info += '\n' + ' ['+ i + '] /images/' + req.files[i].name
                 // 使用同步方式重命名一个文件
                 fs.renameSync(req.files[i].path, target_path);
                 console.log('Successfully renamed a file!');
             }
         }
-        req.flash('success', '图片上传成功!');
-        res.redirect('/post');
+        req.flash('success', '图片上传成功!' + image_info);
+        res.redirect('back');
     });
     app.get('/u/:number', function (req, res) {
         //检查用户是否存在

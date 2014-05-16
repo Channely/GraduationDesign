@@ -1,24 +1,19 @@
 <%- include header %>
 <%- include navbar %>
 <div class="container">
-    <!--<div class="jumbotron">-->
-        <form method="post" class="form-horizontal text-primary" role="form">
-            <h4>主题：</h4>
-            <input type="text" class="form-control" name="title" value="<%= post.title %>" disabled="disabled">
-            <br>
-            <h4>详情：</h4>
-            <textarea class="form-control" name="post" rows="12"><%= post.post %></textarea><br />
-            <br>
-        <span>
-            <a class="btn btn-default" title="传图" href="/upload" style="border-radius: 40px">
-                <span class="glyphicon glyphicon-picture" style="color: orange">&nbsp;传图&nbsp;</span>
-            </a>
-        </span>
-            <button type="submit" class="btn btn-primary btn-lg" style="border-radius: 40px">
-                &nbsp;
-                <span class="glyphicon glyphicon-save" style="color: orange">&nbsp;保存修改&nbsp;</span>
-            </button>
-        </form>
-    <!--</div>-->
+    <form method="post" class="form-horizontal text-primary" role="form">
+        <h4>主题：</h4>
+        <input type="text" class="form-control" name="title" value="<%= post.title %>" disabled="disabled">
+        <br>
+        <h4>详情：</h4>
+        <textarea class="form-control" name="post" rows="12"><%= post.post %></textarea><br />
+        <br>
+        <%- include upload-button %>
+        <button type="submit" class="btn btn-primary btn-lg btn-radius">
+            &nbsp;
+            <span class="glyphicon glyphicon-save" style="color: orange">&nbsp;保存修改&nbsp;</span>
+        </button>
+    </form>
+    <%- include upload-modal %>
 </div>
 <%- include footer %>
