@@ -1,5 +1,7 @@
-.build/
 .idea/
-public/bower_conmponents/
-node_modules/
+.build/
 dist/
+node_modules/
+public/bower_conmponents/
+public/images/
+public/tutorial/
