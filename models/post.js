@@ -1,5 +1,5 @@
 var mongodb = require('./db'),
-markdown = require('markdown').markdown;
+    markdown = require('markdown').markdown;
 
 function Post(number, title, post) {
     this.number = number;
@@ -10,15 +10,15 @@ function Post(number, title, post) {
 module.exports = Post;
 
 //存储一篇文章及其相关信息
-Post.prototype.save = function(callback) {
+Post.prototype.save = function (callback) {
     var date = new Date();
     //存储各种时间格式，方便以后扩展
     var time = {
         date: date,
-        year : date.getFullYear(),
-        month : date.getFullYear() + "-" + (date.getMonth() + 1),
-        day : date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate(),
-        minute : date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
+        year: date.getFullYear(),
+        month: date.getFullYear() + "-" + (date.getMonth() + 1),
+        day: date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate(),
+        minute: date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
             date.getHours() + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes())
     }
     //要存入数据库的文档
@@ -26,7 +26,8 @@ Post.prototype.save = function(callback) {
         number: this.number,
         time: time,
         title: this.title,
-        post: this.post
+        post: this.post,
+        comments: []
     };
     //打开数据库
     mongodb.open(function (err, db) {
@@ -54,14 +55,14 @@ Post.prototype.save = function(callback) {
 };
 
 //读取文章及其相关信息
-Post.getAll = function(number, callback) {
+Post.getAll = function (number, callback) {
     //打开数据库
     mongodb.open(function (err, db) {
         if (err) {
             return callback(err);
         }
         //读取 posts 集合
-        db.collection('posts', function(err, collection) {
+        db.collection('posts', function (err, collection) {
             if (err) {
                 mongodb.close();
                 return callback(err);
@@ -88,7 +89,7 @@ Post.getAll = function(number, callback) {
     });
 };
 //获取一篇文章
-Post.getOne = function(number, day, title, callback) {
+Post.getOne = function (number, day, title, callback) {
     //打开数据库
     mongodb.open(function (err, db) {
         if (err) {
@@ -111,7 +112,12 @@ Post.getOne = function(number, day, title, callback) {
                     return callback(err);
                 }
                 //解析 markdown 为 html
-                doc.post = markdown.toHTML(doc.post);
+                if (doc) {
+                    doc.post = markdown.toHTML(doc.post);
+                    doc.comments.forEach(function (comment) {
+                        comment.content = markdown.toHTML(comment.content);
+                    });
+                }
                 callback(null, doc);//返回查询的一篇文章
             });
         });
@@ -119,7 +125,7 @@ Post.getOne = function(number, day, title, callback) {
 };
 
 //返回原始发表的内容（markdown 格式）
-Post.edit = function(number, day, title, callback) {
+Post.edit = function (number, day, title, callback) {
     //打开数据库
     mongodb.open(function (err, db) {
         if (err) {
@@ -147,7 +153,7 @@ Post.edit = function(number, day, title, callback) {
     });
 };
 //更新一篇文章及其相关信息
-Post.update = function(number, day, title, post, callback) {
+Post.update = function (number, day, title, post, callback) {
     //打开数据库
     mongodb.open(function (err, db) {
         if (err) {
@@ -177,7 +183,7 @@ Post.update = function(number, day, title, post, callback) {
     });
 };
 //删除一篇文章
-Post.remove = function(number, day, title, callback) {
+Post.remove = function (number, day, title, callback) {
     //打开数据库
     mongodb.open(function (err, db) {
         if (err) {
