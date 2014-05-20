@@ -74,14 +74,20 @@ module.exports = function(app) {
     });
 
     app.get('/', function (req, res) {
-        Post.getAll(null, function (err, posts) {
+        //判断是否是第一页，并把请求的页数转换成 number 类型
+        var page = req.query.p ? parseInt(req.query.p) : 1;
+        //查询并返回第 page 页的 10 篇文章
+        Post.getTen(null, page, function (err, posts, total) {
             if (err) {
                 posts = [];
             }
             res.render('index', {
                 title: '主页',
-                user: req.session.user,
                 posts: posts,
+                page: page,
+                isFirstPage: (page - 1) == 0,
+                isLastPage: ((page - 1) * 10 + posts.length) == total,
+                user: req.session.user,
                 success: req.flash('success').toString(),
                 error: req.flash('error').toString()
             });
@@ -150,8 +156,8 @@ module.exports = function(app) {
                 req.flash('error', '用户不存在!');
                 return res.redirect('/');//用户不存在则跳转到主页
             }
-            //查询并返回该用户的所有文章
-            Post.getAll(user.number, function (err, posts) {
+            //查询并返回该用户第 page 页的 10 篇文章
+            Post.getTen(user.number, page, function (err, posts, total) {
                 if (err) {
                     req.flash('error', err);
                     return res.redirect('/');
@@ -159,9 +165,12 @@ module.exports = function(app) {
                 res.render('user', {
                     title: user.number,
                     posts: posts,
-                    user : req.session.user,
-                    success : req.flash('success').toString(),
-                    error : req.flash('error').toString()
+                    page: page,
+                    isFirstPage: (page - 1) == 0,
+                    isLastPage: ((page - 1) * 10 + posts.length) == total,
+                    user: req.session.user,
+                    success: req.flash('success').toString(),
+                    error: req.flash('error').toString()
                 });
             });
         });
