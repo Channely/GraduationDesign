@@ -175,6 +175,22 @@ module.exports = function(app) {
             });
         });
     });
+//    增加时间轴
+    app.get('/archive', function (req, res) {
+        Post.getArchive(function (err, posts) {
+            if (err) {
+                req.flash('error', err);
+                return res.redirect('/');
+            }
+            res.render('archive', {
+                title: '时间轴',
+                posts: posts,
+                user: req.session.user,
+                success: req.flash('success').toString(),
+                error: req.flash('error').toString()
+            });
+        });
+    });
     app.get('/u/:number/:day/:title', function (req, res) {
         Post.getOne(req.params.number, req.params.day, req.params.title, function (err, post) {
             if (err) {

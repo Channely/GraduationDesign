@@ -5,16 +5,22 @@
 <p><%- comment.content %></p>
 <% }) %>
 
-<form method="post">
-    <% if (user) { %>
-    学号：<input type="text" name="number" value="<%= user.number %>" /><br />
-    邮箱：<input type="text" name="email" value="<%= user.email %>" /><br />
-    网址：<input type="text" name="website" value="/u/<%= user.number %>" /><br />
-    <% } else { %>
-    学号：<input type="text" name="number" /><br />
-    邮箱：<input type="text" name="email" /><br />
-    网址：<input type="text" name="website" value="http://" /><br />
-    <% } %>
-    <textarea name="content" rows="5" cols="80"></textarea><br />
-    <input type="submit" value="留言" />
-</form>
+<div class="row">
+    <form method="post">
+        <div class="col-md-3">
+            <% if (user) { %>
+            学号：<input type="text" name="number" value="<%= user.number %>" /><br />
+            邮箱：<input type="text" name="email" value="<%= user.email %>" /><br />
+            网址：<input type="text" name="website" value="/u/<%= user.number %>" /><br />
+            <% } else { %>
+            学号：<input type="text" name="number" /><br />
+            邮箱：<input type="text" name="email" /><br />
+            网址：<input type="text" name="website" value="http://" /><br />
+            <% } %>
+        </div>
+        <div class="col-md-9">
+            <textarea name="content" rows="5" cols="80"></textarea><br />
+            <input type="submit" value="留言" />
+        </div>
+    </form>
+</div>
