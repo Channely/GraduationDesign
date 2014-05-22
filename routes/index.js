@@ -151,6 +151,7 @@ module.exports = function(app) {
         res.redirect('back');
     });
     app.get('/u/:number', function (req, res) {
+        var page = req.query.p ? parseInt(req.query.p) : 1;
         //检查用户是否存在
         User.get(req.params.number, function (err, user) {
             if (!user) {
