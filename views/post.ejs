@@ -3,10 +3,13 @@
 <div class="container" style="margin-top: 50px">
     <form method="post" class="form-horizontal text-primary" role="form">
         <h4>主题：</h4>
-        <input type="text" class="form-control" placeholder="活动主题" name="title" autofocus="true">
+        <input type="text" class="form-control" placeholder="活动主题" name="title" required="true" autofocus="true">
+        <br>
+        <h4>标签：</h4>
+        <input type="text" name="tag1" /><input type="text" name="tag2" /><input type="text" name="tag3" />
         <br>
         <h4>详情：</h4>
-        <textarea class="form-control" rows="6" placeholder="泼墨于此 . . . ." name="post"></textarea>
+        <textarea class="form-control" rows="6" placeholder="泼墨于此 . . . ." name="post" required="true"></textarea>
         <br>
         <%- include upload-button %>
         <button type="submit" class="btn btn-primary btn-lg btn-radius">

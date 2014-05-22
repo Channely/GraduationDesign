@@ -5,6 +5,10 @@
         <h4>主题：</h4>
         <input type="text" class="form-control" name="title" value="<%= post.title %>" disabled="disabled">
         <br>
+        标签：<br />
+        <input type="text" name="tag1" value="<%= post.tags[0] %>" disabled="disabled" />
+        <input type="text" name="tag2" value="<%= post.tags[1] %>" disabled="disabled" />
+        <input type="text" name="tag3" value="<%= post.tags[2] %>" disabled="disabled" /><br />
         <h4>详情：</h4>
         <textarea class="form-control" name="post" rows="12"><%= post.post %></textarea><br />
         <br>
