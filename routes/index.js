@@ -177,6 +177,22 @@ module.exports = function(app) {
             });
         });
     });
+//    增加文章检索功能
+    app.get('/search', function (req, res) {
+        Post.search(req.query.keyword, function (err, posts) {
+            if (err) {
+                req.flash('error', err);
+                return res.redirect('/');
+            }
+            res.render('search', {
+                title: "搜索:" + req.query.keyword,
+                posts: posts,
+                user: req.session.user,
+                success: req.flash('success').toString(),
+                error: req.flash('error').toString()
+            });
+        });
+    });
 //    增加时间轴
     app.get('/archive', function (req, res) {
         Post.getArchive(function (err, posts) {
