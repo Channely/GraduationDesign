@@ -193,6 +193,15 @@ module.exports = function(app) {
             });
         });
     });
+//
+app.get('/about', function (req, res) {
+    res.render('about', {
+        title: '关于我们',
+        user: req.session.user,
+        success: req.flash('success').toString(),
+        error: req.flash('error').toString()
+    });
+});
 //    增加时间轴
     app.get('/archive', function (req, res) {
         Post.getArchive(function (err, posts) {
