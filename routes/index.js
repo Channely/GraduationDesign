@@ -334,6 +334,29 @@ app.get('/about', function (req, res) {
             res.redirect('/');
         });
     });
+//
+    app.get('/reprint/:number/:day/:title', checkLogin);
+    app.get('/reprint/:number/:day/:title', function (req, res) {
+        Post.edit(req.params.number, req.params.day, req.params.title, function (err, post) {
+            if (err) {
+                req.flash('error', err);
+                return res.redirect(back);
+            }
+            var currentUser = req.session.user,
+                reprint_from = {number: post.number, day: post.time.day, title: post.title},
+                reprint_to = {number: currentUser.number, head: currentUser.head};
+            Post.reprint(reprint_from, reprint_to, function (err, post) {
+                if (err) {
+                    req.flash('error', err);
+                    return res.redirect('back');
+                }
+                req.flash('success', '创建下一季成功!');
+                var url = '/u/' + post.number + '/' + post.time.day + '/' + post.title;
+                //跳转到转载后的文章页面
+                res.redirect(url);
+            });
+        });
+    });
 
 
     app.use(function (req, res) {

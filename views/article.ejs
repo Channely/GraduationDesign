@@ -3,10 +3,30 @@
 <div class="container">
     <div class="jumbotron">
         <% if (user && (user.number == post.number)) { %>
-        <span><a class="btn btn-default btn-lg" href="/edit/<%= post.number %>/<%= post.time.day %>/<%= post.title %>" style="border-radius: 40px"> 编 辑 </a></span>
-        <span><a class="btn btn-default btn-primary btn-xs" href="/remove/<%= post.number %>/<%= post.time.day %>/<%= post.title %>" style="border-radius: 40px">删 除</a></span>
+        <span><a class="btn btn-default btn-lg btn-radius" href="/edit/<%= post.number %>/<%= post.time.day %>/<%= post.title %>"> 编 辑 </a></span>
+        <span><a class="btn btn-default btn-danger btn-xs btn-radius" href="/remove/<%= post.number %>/<%= post.time.day %>/<%= post.title %>">删 除</a></span>
         <hr>
         <% } %>
+        
+        <% var flag = 1 %>
+        <% if (user && (user.number != post.number)) { %>
+        <% if ((post.reprint_info.reprint_from != undefined) && (user.number == post.reprint_info.reprint_from.number)) { %>
+        <% flag = 0 %>
+        <% } %>
+        <% if ((post.reprint_info.reprint_to != undefined)) { %>
+        <% post.reprint_info.reprint_to.forEach(function (reprint_to, index) { %>
+        <% if (user.number == reprint_to.number) { %>
+        <% flag = 0 %>
+        <% } %>
+        <% }) %>
+        <% } %>
+        <% } else { %>
+        <% flag = 0 %>
+        <% } %>
+        <% if (flag) { %>
+        <span><a class="btn btn-default btn-success btn-xs btn-radius" href="/reprint/<%= post.number %>/<%= post.time.day %>/<%= post.title %>">举办下一届</a></span>
+        <% } %>
+        
         <p><h2><%= post.title %></h2></p>
         <p class="info">
             作者：<a href="/u/<%= post.number %>"><%= post.number %></a> |
@@ -17,6 +37,11 @@
             <a class="tag" href="/tags/<%= tag %>"><%= tag %></a>
             <% } %>
             <% }) %>
+
+            <% if (post.reprint_info.reprint_from) { %>
+            |
+            操作: <a href="/u/<%= post.reprint_info.reprint_from.number %>/<%= post.reprint_info.reprint_from.day %>/<%= post.reprint_info.reprint_from.title %>">查看上一届</a>
+            <% } %>
         </p>
         <p><%- post.post %></p>
         <p class="info">阅读：<%= post.pv %> | 评论：<%= post.comments.length %></p>

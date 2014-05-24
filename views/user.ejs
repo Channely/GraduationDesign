@@ -18,6 +18,11 @@
                 <a class="tag" href="/tags/<%= tag %>"><%= tag %></a>
                 <% } %>
                 <% }) %>
+
+                <% if (post.reprint_info.reprint_from) { %>
+                 |
+                操作: <a href="/u/<%= post.reprint_info.reprint_from.number %>/<%= post.reprint_info.reprint_from.day %>/<%= post.reprint_info.reprint_from.title %>">查看上一届</a>
+                <% } %>
             </p>
             <p><%- post.post %></p>
             <p class="info">阅读：<%= post.pv %> | 评论：<%= post.comments.length %></p>
