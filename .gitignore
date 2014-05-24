@@ -5,3 +5,5 @@ node_modules/
 public/bower_conmponents/
 public/images/
 public/tutorial/
+access.log
+error.log
