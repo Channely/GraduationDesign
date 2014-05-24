@@ -51,7 +51,7 @@ module.exports = function(app) {
             var newUser = new User({
                 password: password,
                 number: req.body.number,
-                email: 'qijie29896@gmail.com' //设置默认邮箱 以提供默认头像
+                email: 'qijie29896@qq.com' //设置默认邮箱 以提供默认头像
             });
             //检查用户学号是否已经存在
             User.get(newUser.number, function (err, user) {
@@ -106,7 +106,7 @@ module.exports = function(app) {
     app.post('/post', function (req, res) {
         var currentUser = req.session.user,
             tags = [req.body.tag1, req.body.tag2, req.body.tag3],
-            post = new Post(currentUser.number, req.body.title, tags, req.body.post);
+            post = new Post(currentUser.number, currentUser.head, req.body.title, tags, req.body.post);
         post.save(function (err) {
             if (err) {
                 req.flash('error', err);
@@ -268,8 +268,12 @@ app.get('/about', function (req, res) {
         var date = new Date(),
             time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
                 date.getHours() + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
+        var md5 = crypto.createHash('md5'),
+            email_MD5 = md5.update(req.body.email.toLowerCase()).digest('hex'),
+            head = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=64";
         var comment = {
             number: req.body.number,
+            head: head,
             email: req.body.email,
             website: req.body.website,
             time: time,
