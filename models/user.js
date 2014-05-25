@@ -13,7 +13,7 @@ module.exports = User;
 User.prototype.save = function(callback) {
     var md5 = crypto.createHash('md5'),
     email_MD5 = md5.update(this.email.toLowerCase()).digest('hex'),
-    head = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=48";
+    head = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=64";
     //要存入数据库的用户信息文档
     var user = {
         password: this.password,
@@ -59,7 +59,7 @@ User.get = function(number, callback) {
                 mongodb.close();
                 return callback(err);//错误，返回 err 信息
             }
-            //查找用户名（name键）值为 name 一个文档
+            //查找用户名（number键）值为 number 一个文档
             collection.findOne({
                 number: number
             }, function (err, user) {

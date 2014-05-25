@@ -51,7 +51,7 @@ module.exports = function(app) {
             var newUser = new User({
                 password: password,
                 number: req.body.number,
-                email: 'qijie29896@qq.com' //设置默认邮箱 以提供默认头像
+                email: 'qijie29896@gmail.com' //设置默认邮箱 以提供默认头像
             });
             //检查用户学号是否已经存在
             User.get(newUser.number, function (err, user) {
@@ -270,7 +270,7 @@ app.get('/about', function (req, res) {
                 date.getHours() + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
         var md5 = crypto.createHash('md5'),
             email_MD5 = md5.update(req.body.email.toLowerCase()).digest('hex'),
-            head = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=64";
+            head = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=48";
         var comment = {
             number: req.body.number,
             head: head,
