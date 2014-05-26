@@ -5,6 +5,12 @@ function User(user) {
     this.password = user.password;
     this.number = user.number;
     this.email = user.email;
+
+    this.address = user.address;
+    this.birthday = user.birthday;
+    this.qq = user.qq;
+    this.joined = user.joined;
+    this.school = user.school
 };
 
 module.exports = User;
@@ -19,7 +25,13 @@ User.prototype.save = function(callback) {
         password: this.password,
         number : this.number,
         email: this.email,
-        head: head
+        head: head,
+
+        address: this.address,
+        birthday: this.birthday,
+        qq: this.qq,
+        joined: this.joined,
+        school: this.school
     };
     //打开数据库
     mongodb.open(function (err, db) {
@@ -68,6 +80,39 @@ User.get = function(number, callback) {
                     return callback(err);//失败！返回 err 信息
                 }
                 callback(null, user);//成功！返回查询的用户信息
+            });
+        });
+    });
+};
+
+User.update = function (number, qq, address, birthday, email, school, joined, password) {
+    //打开数据库
+    mongodb.open(function (err, db) {
+        if (err) {
+            return callback(err);
+        }
+        //读取 posts 集合
+        db.collection('users', function (err, collection) {
+            if (err) {
+                mongodb.close();
+                return callback(err);
+            }
+            //更新文章内容
+            collection.update({
+                "qq": qq,
+                "address": address,
+                "birthday": birthday,
+                "email": email,
+                "school": school,
+                "password": password
+            }, {
+                $set: {user: user}
+            }, function (err) {
+                mongodb.close();
+                if (err) {
+                    return callback(err);
+                }
+                callback(null);
             });
         });
     });

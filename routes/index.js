@@ -48,10 +48,18 @@ module.exports = function(app) {
             //生成密码的 md5 值
             var md5 = crypto.createHash('md5'),
                 password = md5.update(req.body.signup).digest('hex');
+            var date = new Date(),
+                time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
+                    date.getHours() + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
             var newUser = new User({
                 password: password,
                 number: req.body.number,
-                email: 'qijie29896@gmail.com' //设置默认邮箱 以提供默认头像
+                email: 'qijie29896@gmail.com', //设置默认邮箱 以提供默认头像
+                address:'',
+                birthday: '',
+                qq:'',
+                joined: time,
+                school: ''
             });
             //检查用户学号是否已经存在
             User.get(newUser.number, function (err, user) {
@@ -165,7 +173,7 @@ module.exports = function(app) {
                     return res.redirect('/');
                 }
                 res.render('user', {
-                    title: user.number,
+                    title: '我的记录',
                     posts: posts,
                     page: page,
                     isFirstPage: (page - 1) == 0,
@@ -193,15 +201,76 @@ module.exports = function(app) {
             });
         });
     });
-//
-app.get('/about', function (req, res) {
-    res.render('about', {
-        title: '关于我们',
-        user: req.session.user,
-        success: req.flash('success').toString(),
-        error: req.flash('error').toString()
+//    personal page
+    app.get('/personal', checkLogin);
+    app.get('/personal', function (req, res) {
+        res.redirect('/u/'+req.session.user.number);
     });
-});
+//    profile
+    app.get('/profile', checkLogin);
+    app.get('/profile', function (req, res) {
+        User.get(req.session.user.number, function (err, user) {
+            if (!user) {
+                req.flash('error', '用户不存在!');
+                return res.redirect('/');//用户不存在则跳转到登录页
+            }
+            res.render('profile', {
+                title: '个人信息',
+                user: user,
+                success: req.flash('success').toString(),
+                error: req.flash('error').toString()
+            });
+        });
+    });
+//    setting
+    app.get('/setting', checkLogin);
+    app.get('/setting', function (req, res) {
+        res.render('setting', {
+            title: '设置',
+            user: req.session.user,
+            success: req.flash('success').toString(),
+            error: req.flash('error').toString()
+        });
+    });
+    app.post('/setting', checkLogin);
+    app.post('/setting', function (req, res) {
+        var md5 = crypto.createHash('md5');
+        var password = req.body.password,
+            repassword = req.body.repassword,
+            oldpassword = md5.update(req.body.oldpassword).digest('hex');
+
+        if (oldpassword != req.session.password) {
+            req.flash('error', '密码错误!');
+            return res.redirect('/setting');//返回注册页
+        }
+        User.update(req.body.number, req.body.qq, req.body.address, req.body.birthday, req.body.email, req.body.school, req.body.joined, req.body.password, function (err) {
+            var url = '/profile';
+            if (err) {
+                req.flash('error', err);
+                return res.redirect(url);//出错！返回文章页
+            }
+            req.flash('success', '修改成功!');
+            res.redirect(url);//成功！返回文章页
+        });
+    });
+//关于我们
+    app.get('/about', function (req, res) {
+        res.render('about', {
+            title: '关于我们',
+            user: req.session.user,
+            success: req.flash('success').toString(),
+            error: req.flash('error').toString()
+        });
+    });
+//联系我们
+    app.get('/contact', function (req, res) {
+        res.render('contact', {
+            title: '联系我们',
+            user: req.session.user,
+            success: req.flash('success').toString(),
+            error: req.flash('error').toString()
+        });
+    });
 //    增加时间轴
     app.get('/archive', function (req, res) {
         Post.getArchive(function (err, posts) {
