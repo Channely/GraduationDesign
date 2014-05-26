@@ -1,0 +1,21 @@
+<%- include header %>
+<%- include navbar %>
+<div class="container">
+    <% users.forEach(function (user, index) { %>
+    <div class="jumbotron col-md-3" style="padding: 8px;width: 23%;margin:0 1% 30px 1%">
+        <div class="row">
+            <div class="col-sm-4">
+                <a href="/u/<%= user.number %>">
+                    <img src="<%= user.head %>" alt="<%= user.number %>" class="avatar img-circle" />
+                </a>
+            </div>
+            <div class="col-sm-8">
+                <h4 style="margin-bottom: 0"><a href="/u/<%= user.number %>"><%= user.number %></a></h4>
+                <div class="info">Date：<%= user.joined %></div>
+                <div class="info">From：<span class="tag"><%= user.school %></span></div>
+            </div>
+        </div>
+    </div>
+    <% }) %>
+</div>
+<%- include footer %>

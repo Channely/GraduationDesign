@@ -11,18 +11,20 @@
     <form method="post">
         <div class="col-md-3 col-md-offset-1">
             <% if (user) { %>
-            学号：<input type="text" name="number" value="<%= user.number %>" /><br />
-            邮箱：<input type="text" name="email" value="<%= user.email %>" /><br />
-            网址：<input type="text" name="website" value="/u/<%= user.number %>" /><br />
+            学号：<input type="text" name="number" value="<%= user.number %>" required="true" /><br />
+            邮箱：<input type="text" name="email" value="<%= user.email %>"  required="true" /><br />
+            网址：<input type="text" name="website" value="/u/<%= user.number %>"  required="true" /><br />
             <% } else { %>
-            学号：<input type="text" name="number" /><br />
-            邮箱：<input type="text" name="email" /><br />
-            网址：<input type="text" name="website" value="http://" /><br />
+            学号：<input type="text" name="number"  required="true" /><br />
+            邮箱：<input type="text" name="email"  required="true" /><br />
+            网址：<input type="text" name="website" value="http://"  required="true" /><br />
             <% } %>
+            <br>
+            <input type="number" class="form-control input-lg" name="luck" autofocus="true" placeholder="键入一个数字" required="true" />
         </div>
         <div class="col-md-8">
             <textarea name="content" rows="5" cols="80"></textarea><br />
-            <input class="btn btn-success btn-radius" type="submit" value="留 言" />
         </div>
+        <input class="btn btn-primary btn-lg btn-radius col-md-offset-2 col-md-8" type="submit" value="出 价" />
     </form>
 </div>

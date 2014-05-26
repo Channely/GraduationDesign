@@ -59,7 +59,7 @@ module.exports = function(app) {
                 birthday: '',
                 qq:'',
                 joined: time,
-                school: ''
+                school: '河北科技大学'
             });
             //检查用户学号是否已经存在
             User.get(newUser.number, function (err, user) {
@@ -199,6 +199,23 @@ module.exports = function(app) {
                 success: req.flash('success').toString(),
                 error: req.flash('error').toString()
             });
+        });
+    });
+//    all users page
+    app.get('/users', function (req, res) {
+        User.getAll(function (err, users) {
+            if (err) {
+                req.flash('error', err);
+                return res.redirect('/');
+            }
+            res.render('users', {
+                title: '玩家',
+                users: users,
+                user: req.session.user,
+                success: req.flash('success').toString(),
+                error: req.flash('error').toString()
+            });
+            console.log(users)
         });
     });
 //    personal page

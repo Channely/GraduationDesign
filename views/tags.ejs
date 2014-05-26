@@ -1,6 +1,8 @@
 <%- include header %>
 <%- include navbar %>
-<% posts.forEach(function (tag, index) { %>
-<a class="tag" href="/tags/<%= tag %>"><%= tag %></a>
-<% }) %>
+<div class="container">
+    <% posts.forEach(function (tag, index) { %>
+        <a class="btn btn-default btn-lg tag" href="/tags/<%= tag %>"><%= tag %></a>
+    <% }) %>
+</div>
 <%- include footer %>

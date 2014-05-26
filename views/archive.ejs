@@ -7,7 +7,7 @@
         <% if (lastYear != post.time.year) { %>
         <li><h3><%= post.time.year %></h3></li>
         <% lastYear=post.time.year } %>
-        <li><time><%= post.time.day %></time></li>
+        <li style="margin-left: 30px"><time><%= post.time.day %></time></li>
         <li style="font-size: 30px;margin-left: 100px"><a href="/u/<%= post.number %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></li>
         <% }) %>
     </ul>

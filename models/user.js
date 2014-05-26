@@ -84,6 +84,37 @@ User.get = function(number, callback) {
         });
     });
 };
+//返回所有users存档信息
+User.getAll = function(callback) {
+    //打开数据库
+    mongodb.open(function (err, db) {
+        if (err) {
+            return callback(err);
+        }
+        //读取 posts 集合
+        db.collection('users', function (err, collection) {
+            if (err) {
+                mongodb.close();
+                return callback(err);
+            }
+            //返回只包含 number、email、joined 属性的文档组成的存档数组
+            collection.find({}, {
+                "number": 1,
+                "head": 1,
+                "joined": 1,
+                "school": 1
+            }).sort({
+                joined: -1
+            }).toArray(function (err, users) {
+                mongodb.close();
+                if (err) {
+                    return callback(err);
+                }
+                callback(null, users);
+            });
+        });
+    });
+};
 
 User.update = function (number, qq, address, birthday, email, school, joined, password) {
     //打开数据库
@@ -91,6 +122,9 @@ User.update = function (number, qq, address, birthday, email, school, joined, pa
         if (err) {
             return callback(err);
         }
+        var md5 = crypto.createHash('md5'),
+            email_MD5 = md5.update(email.toLowerCase()).digest('hex'),
+            head = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=64";
         //读取 posts 集合
         db.collection('users', function (err, collection) {
             if (err) {
@@ -103,6 +137,7 @@ User.update = function (number, qq, address, birthday, email, school, joined, pa
                 "address": address,
                 "birthday": birthday,
                 "email": email,
+                "head": head,
                 "school": school,
                 "password": password
             }, {
