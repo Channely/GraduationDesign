@@ -1,26 +1,30 @@
 <%- include header %>
 <%- include navbar %>
 <div class="container">
-    <h1>账户设置</h1>
+    <div class="row">
+        <div class="col-md-3">
+            <h1>账户设置</h1>
+        </div>
+        <div class="col-md-9" style="margin-top: 20px">
+            <div class="alert alert-info alert-dismissable text-center" style="margin: 0">
+                <a class="panel-close close" data-dismiss="alert">×</a>
+                <i class="fa fa-coffee"></i>
+                如需修改头像,请点击 <strong>修改</strong> 按钮至 <strong>Gravatar</strong> 主页修改您邮箱所绑定的图片.
+            </div>
+        </div>
+    </div>
     <hr>
     <div class="row">
         <!-- left column -->
         <div class="col-md-3">
             <div class="text-center">
                 <img src="<%= user.head %>" class="avatar img-circle" alt="avatar">
-                <h6>我的头像</h6>
-
-                <input type="file" class="form-control">
+                <h6><a class="btn btn-default" href="http://gravatar.com/emails">修改头像</a></h6>
             </div>
         </div>
 
         <!-- edit form column -->
         <div class="col-md-9 personal-info">
-            <div class="alert alert-info alert-dismissable text-center">
-                <a class="panel-close close" data-dismiss="alert">×</a>
-                <i class="fa fa-coffee"></i>
-                如需修改头像,请点击 <strong>修改</strong> 按钮至 <strong>Gravatar</strong> 主页修改您邮箱所绑定的图片.
-            </div>
             <h3>个人信息</h3>
 
             <form mothed="post" action='/setting' class="form-horizontal" role="form">
@@ -94,15 +98,16 @@
                         <input class="form-control" type="password" name="password" required="true">
                     </div>
                 </div>
-
-                <button type="submit" class="btn btn-primary btn-lg btn-radius">
-                    &nbsp;
-                    <span class="glyphicon glyphicon-save" style="color: orange">&nbsp;保存修改&nbsp;</span>
-                </button>
-                <button type="reset" class="btn btn-warnning btn-radius">
-                    &nbsp;
-                    <span class="glyphicon glyphicon-remove" style="color: red">&nbsp;取消&nbsp;</span>
-                </button>
+                <div class="pull-right" style="margin-right: 70px">
+                    <button type="submit" class="btn btn-primary btn-lg btn-radius">
+                        &nbsp;
+                        <span class="glyphicon glyphicon-save" style="color: orange">&nbsp;保存修改&nbsp;</span>
+                    </button>
+                    <button type="reset" class="btn btn-default btn-radius">
+                        &nbsp;
+                        <span class="glyphicon glyphicon-remove" style="color: red">&nbsp;取消&nbsp;</span>
+                    </button>
+                </div>
             </form>
         </div>
     </div>
