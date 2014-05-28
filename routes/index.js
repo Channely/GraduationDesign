@@ -242,6 +242,7 @@ module.exports = function(app) {
 //    setting
     app.get('/setting', checkLogin);
     app.get('/setting', function (req, res) {
+        console.log(JSON.stringify(req.session.user))
         res.render('setting', {
             title: '设置',
             user: req.session.user,
@@ -252,16 +253,18 @@ module.exports = function(app) {
     app.post('/setting', checkLogin);
     app.post('/setting', function (req, res) {
         var currentUser = req.session.user;
-        var md5 = crypto.createHash('md5');
-        var newpassword = req.params.newpassword,
-            renewpassword = req.params.renewpassword,
-            password = md5.update(req.params.password).digest('hex');
+        var md5_1 = crypto.createHash('md5');
+        var md5_2 = crypto.createHash('md5');
+        var newpassword = req.body.newpassword;
+        var renewpassword = req.body.renewpassword;
+        var password = md5_1.update(req.body.password).digest('hex');
         if (password != req.session.user.password || newpassword != renewpassword) {
             req.flash('error', '密码错误!');
             return res.redirect('/setting');//返回注册页
         }
-        User.update(currentUser.number, req.params.qq, req.params.address, req.params.birthday, req.params.email, req.params.school, req.params.params, md5.update(req.params.newpassword).digest('hex'), function (err) {
+        User.update(currentUser.number, req.body.qq, req.body.address, req.body.birthday, req.body.email, req.body.school, md5_2.update(renewpassword).digest('hex'), function (err) {
             var url = '/profile';
+            console.log('--------------')
             if (err) {
                 req.flash('error', err);
                 return res.redirect(url);//出错！返回文章页

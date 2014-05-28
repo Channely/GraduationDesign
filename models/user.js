@@ -116,7 +116,7 @@ User.getAll = function(callback) {
     });
 };
 
-User.update = function (number, qq, address, birthday, email, school, joined, password) {
+User.update = function (number, qq, address, birthday, email, school, password) {
     //打开数据库
     mongodb.open(function (err, db) {
         if (err) {
@@ -133,15 +133,17 @@ User.update = function (number, qq, address, birthday, email, school, joined, pa
             }
             //更新文章内容
             collection.update({
-                "qq": qq,
-                "address": address,
-                "birthday": birthday,
-                "email": email,
-                "head": head,
-                "school": school,
-                "password": password
+                "number": number
             }, {
-                $set: {user: user}
+                $set: {
+                    qq: qq,
+                    address: address,
+                    birthday: birthday,
+                    email: email,
+                    head: head,
+                    school: school,
+                    password: password
+                }
             }, function (err) {
                 mongodb.close();
                 if (err) {
