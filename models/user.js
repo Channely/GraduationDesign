@@ -116,7 +116,7 @@ User.getAll = function(callback) {
     });
 };
 
-User.update = function (number, qq, address, birthday, email, school, password) {
+User.update = function (number, qq, address, birthday, email, school, password, callback) {
     //打开数据库
     mongodb.open(function (err, db) {
         if (err) {

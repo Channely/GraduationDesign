@@ -242,7 +242,6 @@ module.exports = function(app) {
 //    setting
     app.get('/setting', checkLogin);
     app.get('/setting', function (req, res) {
-        console.log(JSON.stringify(req.session.user))
         res.render('setting', {
             title: '设置',
             user: req.session.user,
@@ -255,22 +254,27 @@ module.exports = function(app) {
         var currentUser = req.session.user;
         var md5_1 = crypto.createHash('md5');
         var md5_2 = crypto.createHash('md5');
+        var password = md5_1.update(req.body.password).digest('hex');
         var newpassword = req.body.newpassword;
         var renewpassword = req.body.renewpassword;
-        var password = md5_1.update(req.body.password).digest('hex');
+        var email = req.body.email;
         if (password != req.session.user.password || newpassword != renewpassword) {
             req.flash('error', '密码错误!');
             return res.redirect('/setting');//返回注册页
         }
-        User.update(currentUser.number, req.body.qq, req.body.address, req.body.birthday, req.body.email, req.body.school, md5_2.update(renewpassword).digest('hex'), function (err) {
+        User.update(currentUser.number, req.body.qq, req.body.address, req.body.birthday, email==''?'qijie29896@gmail.com':email, req.body.school, newpassword == ''?password:md5_2.update(newpassword).digest('hex'), function (err) {
             var url = '/profile';
-            console.log('--------------')
             if (err) {
                 req.flash('error', err);
                 return res.redirect(url);//出错！返回文章页
             }
-            req.flash('success', '修改成功!');
-            res.redirect(url);//成功！返回文章页
+
+            User.get(currentUser.number, function (err, user) {
+                //用户名密码都匹配后，将用户信息存入 session
+                req.session.user = user;
+                req.flash('success', '修改成功!');
+                res.redirect(url);//成功！返回文章页
+            });
         });
     });
 //关于我们

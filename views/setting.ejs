@@ -55,14 +55,14 @@
                 <div class="form-group">
                     <label class="col-lg-3 control-label">邮箱:</label>
                     <div class="col-lg-8">
-                        <input class="form-control" type="email" name="email" value="<%= user.email %>">
+                        <input class="form-control" type="email" name="email" value=<% if(user.email=='qijie29896@gmail.com'){%> "" <% }else{%> <%= user.email %> <%} %>>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">学校:</label>
                     <div class="col-lg-8">
                         <div class="ui-select">
-                            <select id="school" class="form-control" type="text" name="school">
+                            <select id="school" class="form-control" type="text" name="school" >
                                 <option value="河北科技大学" selected="selected">河北科技大学</option>
                                 <option value="河北师范大学">河北师范大学</option>
                                 <option value="河北经贸大学">河北经贸大学</option>
@@ -83,17 +83,17 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label">新密码:</label>
                     <div class="col-md-8">
-                        <input class="form-control" type="password" name="newpassword">
+                        <input class="form-control" type="password" name="newpassword" value="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">重复新密码:</label>
                     <div class="col-md-8">
-                        <input class="form-control" type="password" name="renewpassword">
+                        <input class="form-control" type="password" name="renewpassword" value="">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">旧密码:</label>
+                    <label class="col-md-3 control-label">原密码:</label>
                     <div class="col-md-8">
                         <input class="form-control" type="password" name="password" required="true">
                     </div>
