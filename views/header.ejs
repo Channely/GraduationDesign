@@ -7,43 +7,21 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="/images/favicon.png">
-
     <title>Inital | <%= title %></title>
 
     <!-- Bootstrap core CSS -->
     <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom styles for this template -->
     <link href="/stylesheets/index.css" rel="stylesheet">
+
     <!-- kindeditor -->
-    <script charset="utf-8" src="/kindeditor/kindeditor-min.js"></script>
-    <script charset="utf-8" src="/kindeditor/lang/zh_CN.js"></script>
-    <script>
-        var editor;
-        KindEditor.ready(function(K) {
-            editor = K.create('textarea', {
-                allowImageUpload : false,
-                items : [
-                    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic',
-                    'underline', 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright',
-                    'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', 'link']
-            });
-        });
-    </script>
-
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]>
-    <script src="/javascripts/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <%- include kindeditor/kindeditor_inner_head.ejs %>
+    <!-- ie support -->
+    <%- include ie_support/ie_support_inner_head.ejs %>
 
 </head>
-
 <body>
+
     <% if (success) { %>
     <div class="alert alert-success alert-dismissable text-center">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

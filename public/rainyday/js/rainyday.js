@@ -102,7 +102,8 @@ RainyDay.prototype.prepareGlass = function(opacity) {
 	this.glass.style.position = "absolute";
 	this.glass.style.top = this.canvas.offsetTop;
 	this.glass.style.left = this.canvas.offsetLeft;
-	this.glass.style.zIndex = this.canvas.style.zIndex + 100;
+//    change the zindex+100 to zindex+0 to display contents above the rainyday background.
+	this.glass.style.zIndex = this.canvas.style.zIndex + 0;
 	this.canvas.parentNode.appendChild(this.glass);
 	this.context = this.glass.getContext('2d');
 	this.glass.style.opacity = opacity;
