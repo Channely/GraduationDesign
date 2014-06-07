@@ -473,10 +473,15 @@ module.exports = function(app) {
         });
     });
 
+    // 指定webscoket的客户端的html文件
+    app.get('/chatroom', function(req, res){
+        res.render('chatroom/chatroom');
+    });
 
     app.use(function (req, res) {
         res.render("404");
     });
+
 
     function checkLogin(req, res, next) {
         if (!req.session.user) {
