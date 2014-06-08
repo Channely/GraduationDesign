@@ -382,6 +382,19 @@ module.exports = function(app) {
             res.redirect('back');
         });
     });
+    //remove comment
+    app.get('/remove/comment/:number/:day/:title/:time', checkLogin);
+    app.get('/remove/comment/:number/:day/:title/:time', function (req, res) {
+        var currentUser = req.session.user;
+        Comment.remove(req.params.number, req.params.day, req.params.title, currentUser.number, req.params.time, function (err) {
+            if (err) {
+                req.flash('error', err);
+                return res.redirect('back');
+            }
+            req.flash('success', '评论删除成功!');
+            res.redirect('/u/'+req.params.number+'/'+req.params.day+'/'+req.params.title);
+        });
+    });
     app.get('/edit/:number/:day/:title', checkLogin);
     app.get('/edit/:number/:day/:title', function (req, res) {
         var currentUser = req.session.user;
@@ -427,7 +440,6 @@ module.exports = function(app) {
             res.redirect('/');
         });
     });
-//
     app.get('/reprint/:number/:day/:title', checkLogin);
     app.get('/reprint/:number/:day/:title', function (req, res) {
         Post.edit(req.params.number, req.params.day, req.params.title, function (err, post) {

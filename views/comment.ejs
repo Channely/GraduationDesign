@@ -2,7 +2,11 @@
 <% post.comments.forEach(function (comment, index) { %>
     <div style="padding-left:2em">
         <p><img src="<%= comment.head %>"  class="img-circle" />&nbsp;&nbsp;<a href="<%= comment.website %>"><%= comment.number %></a>
-        <span class="info"> 回复于 <%= comment.time %></span></p>
+        <span class="info"> 回复于 <%= comment.time %></span>
+        <% if (comment.number == user.number) { %>
+        <span><a class="btn btn-default btn-danger btn-xs btn-radius" href="/remove/comment/<%= post.number %>/<%= post.time.day %>/<%= post.title %>/<%= comment.time %>">删 除</a></span>
+        <% } %>
+        </p>
         <p class="bg-info" style="padding:15px;margin: 0px 30px 30px 30px"><%- comment.content %></p>
     </div>
 <% }) %>
