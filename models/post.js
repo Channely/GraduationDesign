@@ -32,6 +32,8 @@ Post.prototype.save = function (callback) {
         tags: this.tags,
         post: this.post,
         comments: [],
+        lucks: [],
+        winner: {},
         reprint_info: {},
         pv: 0
     };

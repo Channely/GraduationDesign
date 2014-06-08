@@ -45,6 +45,9 @@
         </p>
         <p><%- post.post %></p>
         <p class="info">阅读：<%= post.pv %> | 评论：<%= post.comments.length %></p>
+        <p class="btn-radius" style="padding:15px;margin: 0;background-color: #ffd15b">
+            Winner:<img src="<%= post.winner.head %>" class="img-circle" /> &nbsp;&nbsp;&nbsp;&nbsp;学号：<%= post.winner.number %> &nbsp;&nbsp;&nbsp;&nbsp;出价：<%- post.winner.luck %> &nbsp;&nbsp;&nbsp;&nbsp;于<%= post.winner.time %>
+        </p>
     </div>
     <%- include comment %>
 </div>

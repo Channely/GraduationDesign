@@ -32,13 +32,74 @@ Comment.prototype.save = function(callback) {
                 "time.day": day,
                 "title": title
             }, {
-                $push: {"comments": comment}
+                $push: {"comments": comment,"lucks":comment.luck}
             } , function (err) {
-                mongodb.close();
                 if (err) {
+                    mongodb.close();
                     return callback(err);
                 }
-                callback(null);
+//                callback(null);
+            });
+
+            collection.findOne({
+                "number": number,
+                "time.day": day,
+                "title": title
+            }, function (err, doc) {
+                if (err) {
+                    mongodb.close();
+                    return callback(err);
+                }
+                if (doc) {
+
+                    function get_winner(){
+                        var lucks = doc.lucks.sort();
+                        lucks.unshift('head');
+                        lucks.push('footer');
+                        for(var i=1;i<lucks.length-1;i++){
+                            if(lucks[i-1]!=lucks[i] && lucks[i]!=lucks[i+1]){
+                                return lucks[i];
+                            }
+                        }
+                        return 0;
+                    }
+
+                    var winner = doc.lucks.length==0?0:get_winner();
+
+                    function get_winner_info(winner){
+                        var comments = doc.comments;
+                        for(var i=0;i<comments.length;i++){
+                            if(comments[i].luck==winner){
+                                return comments[i];
+                            }
+                        }
+                    }
+
+                    var winner_info = winner==0?{
+                        "number" : "none",
+                        "head" : "http://www.gravatar.com/avatar/e8514a337805f7b4c6b3285b3f0b23a0?s=48",
+                        "email" : "none@none.none",
+                        "website" : "/u/none",
+                        "time" : "0000-00-00 00:00",
+                        "content" : "none",
+                        "luck" : "none"
+                    }:get_winner_info(winner);
+
+                    //每访问 1 次，pv 值增加 1
+                    collection.update({
+                        "number": number,
+                        "time.day": day,
+                        "title": title
+                    }, {
+                        $set: {"winner": winner_info}
+                    }, function (err) {
+                        mongodb.close();
+                        if (err) {
+                            return callback(err);
+                        }
+                    });
+                    callback(null);//返回查询的一篇文章
+                }
             });
         });
     });

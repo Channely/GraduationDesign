@@ -370,7 +370,8 @@ module.exports = function(app) {
             email: req.body.email,
             website: req.body.website,
             time: time,
-            content: req.body.content
+            content: req.body.content,
+            luck: req.body.luck
         };
         var newComment = new Comment(req.params.number, req.params.day, req.params.title, comment);
         newComment.save(function (err) {
