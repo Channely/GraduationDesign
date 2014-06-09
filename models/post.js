@@ -424,7 +424,6 @@ Post.reprint = function(reprint_from, reprint_to, callback) {
                 doc.number = reprint_to.number;
                 doc.head = reprint_to.head;
                 doc.time = time;
-
 //              can update the activity title by '第n季' to '第n+1季'
                 var di_num = doc.title.search('第');
                 var ji_num = doc.title.search('季:');
@@ -438,6 +437,8 @@ Post.reprint = function(reprint_from, reprint_to, callback) {
 //                doc.title = (doc.title.search(/[转载]/) > -1) ? doc.title : "[转载]" + doc.title;
 
                 doc.comments = [];
+                doc.lucks = [];
+                doc.winner = {};
                 doc.reprint_info = {"reprint_from": reprint_from};
                 doc.pv = 0;
 
