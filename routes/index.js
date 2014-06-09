@@ -286,6 +286,15 @@ module.exports = function(app) {
             error: req.flash('error').toString()
         });
     });
+//规则帮助
+    app.get('/help', function (req, res) {
+        res.render('help', {
+            title: '帮助',
+            user: req.session.user,
+            success: req.flash('success').toString(),
+            error: req.flash('error').toString()
+        });
+    });
 //联系我们
     app.get('/contact', function (req, res) {
         res.render('contact', {
