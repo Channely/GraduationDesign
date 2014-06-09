@@ -33,7 +33,15 @@ Post.prototype.save = function (callback) {
         post: this.post,
         comments: [],
         lucks: [],
-        winner: {},
+        winner: {
+            "number" : "暂无胜出者",
+            "head" : "http://www.gravatar.com/avatar/e8514a337805f7b4c6b3285b3f0b23a0?s=48",
+            "email" : "none@none.none",
+            "website" : "#",
+            "time" : "0000-00-00 00:00",
+            "content" : "none",
+            "luck" : "暂无"
+        },
         reprint_info: {},
         pv: 0
     };
@@ -438,7 +446,15 @@ Post.reprint = function(reprint_from, reprint_to, callback) {
 
                 doc.comments = [];
                 doc.lucks = [];
-                doc.winner = {};
+                doc.winner = {
+                    "number" : "暂无胜出者",
+                    "head" : "http://www.gravatar.com/avatar/e8514a337805f7b4c6b3285b3f0b23a0?s=48",
+                    "email" : "none@none.none",
+                    "website" : "#",
+                    "time" : "0000-00-00 00:00",
+                    "content" : "none",
+                    "luck" : "暂无"
+                };
                 doc.reprint_info = {"reprint_from": reprint_from};
                 doc.pv = 0;
 

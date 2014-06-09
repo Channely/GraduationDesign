@@ -57,7 +57,7 @@ Comment.prototype.save = function(callback) {
                         lucks.unshift('head');
                         lucks.push('footer');
                         for(var i=1;i<lucks.length-1;i++){
-                            if(lucks[i-1]!=lucks[i] && lucks[i]!=lucks[i+1]){
+                            if(lucks[i-1]!=lucks[i] && lucks[i]!=lucks[i+1] && lucks[i]>0){
                                 return lucks[i];
                             }
                         }
@@ -76,16 +76,15 @@ Comment.prototype.save = function(callback) {
                     }
 
                     var winner_info = winner==0?{
-                        "number" : "none",
+                        "number" : "暂无胜出者",
                         "head" : "http://www.gravatar.com/avatar/e8514a337805f7b4c6b3285b3f0b23a0?s=48",
                         "email" : "none@none.none",
-                        "website" : "/u/none",
+                        "website" : "#",
                         "time" : "0000-00-00 00:00",
                         "content" : "none",
-                        "luck" : "none"
+                        "luck" : "暂无"
                     }:get_winner_info(winner);
 
-                    //每访问 1 次，pv 值增加 1
                     collection.update({
                         "number": number,
                         "time.day": day,
