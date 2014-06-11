@@ -53,11 +53,11 @@ Comment.prototype.save = function(callback) {
                 if (doc) {
 
                     function get_winner(){
-                        var lucks = doc.lucks.sort();
+                        var lucks = doc.lucks.sort(function(a,b){return a-b});
                         lucks.unshift('head');
                         lucks.push('footer');
                         for(var i=1;i<lucks.length-1;i++){
-                            if(lucks[i-1]!=lucks[i] && lucks[i]!=lucks[i+1] && lucks[i]>0){
+                            if(lucks[i-1]!=lucks[i] && lucks[i]!=lucks[i+1] && 10000>lucks[i]>0){
                                 return lucks[i];
                             }
                         }
